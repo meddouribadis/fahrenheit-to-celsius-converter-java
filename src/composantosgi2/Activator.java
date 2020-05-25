@@ -25,11 +25,11 @@ public class Activator implements BundleActivator, ServiceListener {
 		this.ref = context.getServiceReference(Convertisseur.class);
 		
 		if(ref == null) {
-			System.out.println("Erreur");
+			System.out.println("No service found, waiting for ConvertisseurAPI service.");
 			this.c = null;
 		}
 		else {
-			this.frame = new ConvertisseurFrame("Badis");
+			this.frame = new ConvertisseurFrame("Converter Badis");
 			this.c = context.getService(ref);
 			this.frame.setConvertisseur(this.c);
 		}
@@ -73,7 +73,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	}
 	
 	private void traiterServiceRegistered(ServiceReference<Convertisseur> sr) {
-		this.frame = new ConvertisseurFrame("Badis");
+		this.frame = new ConvertisseurFrame("Converter Badis");
 		this.ref = sr;
 		this.c = context.getService(ref);
 		this.frame.setConvertisseur(this.c);
@@ -84,6 +84,21 @@ public class Activator implements BundleActivator, ServiceListener {
 		this.frame = null;
 		this.c = null;
 		this.ref = null;
+		searchService();
+	}
+	
+	private void searchService() {
+		this.ref = Activator.context.getServiceReference(Convertisseur.class);
+		
+		if(ref == null) {
+			System.out.println("No services.");
+			this.c = null;
+		}
+		else {
+			this.frame = new ConvertisseurFrame("Converter Badis");
+			this.c = context.getService(ref);
+			this.frame.setConvertisseur(this.c);
+		}
 	}
 
 }
