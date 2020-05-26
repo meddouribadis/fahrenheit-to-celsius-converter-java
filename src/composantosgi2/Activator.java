@@ -23,6 +23,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
 		this.ref = context.getServiceReference(Convertisseur.class);
+        context.addServiceListener(this);
 		
 		if(ref == null) {
 			System.out.println("No service found, waiting for ConvertisseurAPI service.");
@@ -38,7 +39,7 @@ public class Activator implements BundleActivator, ServiceListener {
 
 	public void stop(BundleContext bundleContext) throws Exception {
 		Activator.context = null;
-		this.frame.dispose();
+		if(this.frame != null) this.frame.dispose();
 		this.frame = null;
 		this.c = null;
 		this.ref = null;
@@ -47,6 +48,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	@Override
 	public void serviceChanged(ServiceEvent event) {
 		String[] objectClass = (String[]) event.getServiceReference().getProperty("objectClass");
+		System.out.println("Service changed : " + objectClass[0]);
 		
 		if(objectClass[0].equals(Convertisseur.class.getName())) {
 			ServiceReference<Convertisseur> sr = (ServiceReference<Convertisseur>) event.getServiceReference();
