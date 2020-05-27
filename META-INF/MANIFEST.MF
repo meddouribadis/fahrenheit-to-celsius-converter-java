@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: ComposantOSGI2
 Bundle-SymbolicName: ConvertisseurIHM
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: converter.ihm.listener.Activator
+Bundle-Activator: converter.ihm.tracker.Activateur
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: contratconvertisseur,
  convertisseurframe,

@@ -76,13 +76,13 @@ public class Activateur implements BundleActivator, ServiceTrackerCustomizer<Con
 
 	@Override
 	public void removedService(ServiceReference<Convertisseur> arg0, Convertisseur arg1) {
-		if(this.ref != null && this.ref.equals(arg1)) {
+		System.out.println("Service was removed : " + arg0);
+		if(this.ref != null && this.ref.equals(arg0)) {
 			this.c = null;
 			context.ungetService(this.ref);
 			if(this.frame != null) this.frame.dispose();
 			this.frame = null;
 			this.ref = null;
-			System.out.println("Service was removed");
 		}
 	}
 
