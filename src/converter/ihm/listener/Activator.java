@@ -43,6 +43,7 @@ public class Activator implements BundleActivator, ServiceListener {
 		this.frame = null;
 		this.c = null;
 		this.ref = null;
+        context.removeServiceListener(this);
 	}
 
 	@Override

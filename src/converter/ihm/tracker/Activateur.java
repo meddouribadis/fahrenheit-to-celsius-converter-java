@@ -46,6 +46,10 @@ public class Activateur implements BundleActivator, ServiceTrackerCustomizer<Con
 		this.ref = null;
 	}
 	
+	private void searchService() {
+		
+	}
+	
 	// Tracker Part //
 	static BundleContext getContext() {
 		return context;
@@ -53,20 +57,33 @@ public class Activateur implements BundleActivator, ServiceTrackerCustomizer<Con
 
 	@Override
 	public Convertisseur addingService(ServiceReference<Convertisseur> arg0) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("New service : (Lang = " + arg0.getProperty("Lang") + ")");
+		
+		if(this.ref == null) {
+			this.ref = arg0;
+			if(this.frame == null) this.frame = new ConvertisseurFrame("Converter Badis");
+			this.c = context.getService(this.ref);
+			this.frame.setConvertisseur(this.c);
+		} 
+		
+		return this.c;
 	}
 
 	@Override
 	public void modifiedService(ServiceReference<Convertisseur> arg0, Convertisseur arg1) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Modified service");
 	}
 
 	@Override
 	public void removedService(ServiceReference<Convertisseur> arg0, Convertisseur arg1) {
-		// TODO Auto-generated method stub
-		
+		if(this.ref != null && this.ref.equals(arg1)) {
+			this.c = null;
+			context.ungetService(this.ref);
+			if(this.frame != null) this.frame.dispose();
+			this.frame = null;
+			this.ref = null;
+			System.out.println("Service was removed");
+		}
 	}
 
 }
