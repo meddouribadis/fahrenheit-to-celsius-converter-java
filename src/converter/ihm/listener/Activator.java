@@ -1,4 +1,4 @@
-package composantosgi2;
+package converter.ihm.listener;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
